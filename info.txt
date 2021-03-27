@@ -1,0 +1,21 @@
+CREATE TABLE `users` ( `id` int PRIMARY KEY AUTO_INCREMENT, `full_name` varchar(255), `email` varchar(255), `password` varchar(255), `role` tinyint, `created_at` timestamp, `updated_at` timestamp )
+
+CREATE TABLE `websites` ( `id` int PRIMARY KEY AUTO_INCREMENT, `name` varchar(255), `webiste_url` varchar(255), `api_key` varchar(255), `meta_title` varchar(255), `meta_keywords` varchar(255), `meta_description` text, `created_at` timestamp, `updated_at` timestamp )
+
+CREATE TABLE `posts` ( `id` int PRIMARY KEY AUTO_INCREMENT, `website_id` int, `post_type` char, `title` varchar(255), `meta_title` varchar(255), `meta_keywords` varchar(255), `meta_description` text, `desciption` text, `feature_image_url` text, `category_id` int, `status` tinyint, `is_deleted` boolean DEFAULT false, `created_at` timestamp, `updated_at` timestamp )
+
+CREATE TABLE `category` ( `id` int PRIMARY KEY AUTO_INCREMENT, `website_id` int, `title` varchar(255), `status` boolean, `is_deleted` boolean DEFAULT false )
+
+CREATE TABLE `tags` ( `id` int PRIMARY KEY AUTO_INCREMENT, `title` varchar(255), `status` boolean DEFAULT false )
+
+CREATE TABLE `post_tags` ( `tag_id` int, `post_id` int )
+
+ALTER TABLE `posts` ADD FOREIGN KEY (`website_id`) REFERENCES `websites` (`id`)
+
+ALTER TABLE `category` ADD FOREIGN KEY (`website_id`)
+
+
+ALTER TABLE `post_tags` ADD FOREIGN KEY (`tag_id`) 
+
+
+ALTER TABLE `post_tags` ADD FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
